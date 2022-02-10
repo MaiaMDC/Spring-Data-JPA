@@ -4,23 +4,22 @@ import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
-import br.com.alura.spring.data.orm.Cargo;
-import br.com.alura.spring.data.repository.CargoRepository;
+import br.com.alura.spring.data.orm.UnidadeTrabalho;
+import br.com.alura.spring.data.repository.UnidadeTrabalhoRepository;
 
 @Service
 public class CrudUnidadeTrabalhoService {
+
+	private Boolean system = true;
+	private final UnidadeTrabalhoRepository unidadeTrabalhoRepository;
 	
-	private Boolean system = true;	
-	private final CargoRepository cargoRepository;
-	
-	public CrudUnidadeTrabalhoService(CargoRepository cargoRepository) {
-		this.cargoRepository = cargoRepository;
+	public CrudUnidadeTrabalhoService(UnidadeTrabalhoRepository unidadeTrabalhoRepository) {
+		this.unidadeTrabalhoRepository = unidadeTrabalhoRepository;
 	}
 	
 	public void inicial(Scanner scanner) {
-		
-		while(system){
-			System.out.println("qual acao de cargo deseja executar");
+		while(system) {
+			System.out.println("Qual acao de unidade deseja executar");
 			System.out.println("0 - Sair");
 			System.out.println("1 - Salvar");
 			System.out.println("2 - Atualizar");
@@ -29,10 +28,9 @@ public class CrudUnidadeTrabalhoService {
 			
 			int action = scanner.nextInt();
 			
-		
 			switch (action) {
 			case 1:
-				salvar(scanner);				
+				salvar(scanner);
 				break;
 			case 2:
 				atualizar(scanner);
@@ -47,49 +45,55 @@ public class CrudUnidadeTrabalhoService {
 				system = false;
 				break;
 			}
+			
 		}
 		
-		salvar(scanner);
 	}
-	
-	
 	
 	private void salvar(Scanner scanner) {
-		System.out.println("Descricao do cargo: ");
-		String descricao = scanner.next();
-		Cargo cargo = new Cargo();
-		cargo.setDescricao(descricao);	
-		cargoRepository.save(cargo);
-		System.out.println("Salvo");
+		System.out.println("Digite o nome da unidade");
+        String nome = scanner.next();
+
+        System.out.println("Digite o endereco");
+        String endereco = scanner.next();
+
+        UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
+        unidadeTrabalho.setDescricao(nome);
+        unidadeTrabalho.setEndereco(endereco);
+
+        unidadeTrabalhoRepository.save(unidadeTrabalho);
+        System.out.println("Salvo");
 	}
 	
-		private void atualizar(Scanner scanner) {
-			System.out.println("Id");
-			int id = scanner.nextInt();
-			System.out.println("Descricao do Cargo");
-			String descricao = scanner.next();
-			
-			Cargo cargo = new Cargo();
-			cargo.setId(id);
-			cargo.setDescricao(descricao);
-			cargoRepository.save(cargo);
-			System.out.println("Atualizado");
-		}
-		
-		private void visualizar() {
-			Iterable<Cargo> cargos = cargoRepository.findAll();
-			cargos.forEach(cargo -> System.out.println(cargo));
-		}
-	
-		private void deletar(Scanner scanner) {
-			System.out.println("Id");
-			int id = scanner.nextInt();
-			cargoRepository.deleteById(id);
-			System.out.println("Deletado");
-		}
+	private void atualizar(Scanner scanner) {
+		System.out.println("Digite o id");
+        Integer id = scanner.nextInt();
 
-		public static void main(String[] args) {
-			
-			System.out.println("3 - Visualizar");
-		}
+        System.out.println("Digite o nome da unidade");
+        String nome = scanner.next();
+
+        System.out.println("Digite o endereco");
+        String endereco = scanner.next();
+
+        UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
+        unidadeTrabalho.setId(id);
+        unidadeTrabalho.setDescricao(nome);
+        unidadeTrabalho.setEndereco(endereco);
+
+        unidadeTrabalhoRepository.save(unidadeTrabalho);
+        System.out.println("Alterado");
+	}
+	
+	private void visualizar() {
+		Iterable<UnidadeTrabalho> unidades = unidadeTrabalhoRepository.findAll();
+		unidades.forEach(unidade -> System.out.println(unidade));
+	}
+	
+	private void deletar(Scanner scanner) {
+		System.out.println("Id");
+		int id = scanner.nextInt();
+		unidadeTrabalhoRepository.deleteById(id);
+		System.out.println("Deletado");
+	}
+	
 }
