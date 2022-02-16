@@ -11,8 +11,9 @@ import javax.persistence.Table;
 public class Cargo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	private String descricao;
 	
 	public Integer getId() {
@@ -27,7 +28,5 @@ public class Cargo {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
 	
 }

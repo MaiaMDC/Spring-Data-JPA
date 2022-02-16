@@ -10,6 +10,6 @@ import br.com.alura.spring.data.orm.Cargo;
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Integer> {
 	
-	List<Cargo> findByDescricaoOrId(String descricao, Integer id);
+	List<Cargo> findByDescricaoOrId(String descricaos, Integer id);
 
 }
