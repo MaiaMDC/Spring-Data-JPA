@@ -32,12 +32,6 @@ public class CargosController {
         return cargoRepository.findAll();
     }
     
-    @GetMapping("/cargos")
-    public List < Cargo > getAllcargos(@Query) {
-    	System.out.println("asfndiuashfduyasinf");
-        return cargoRepository.findAll();
-    }
-
     @GetMapping("/cargos/{id}")
     public ResponseEntity < Cargo > getCargoById(@PathVariable(value = "id") Integer cargoId)
     throws ResourceNotFoundException {
